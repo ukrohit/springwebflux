@@ -30,3 +30,4 @@ r2dbc:mysql://localhost:3306/userdb
 - [R2DBC Data Types](https://r2dbc.io/spec/1.0.0.RELEASE/spec/html/#datatypes)
 - [Spring Data R2DBC](https://docs.spring.io/spring-data/relational/reference/r2dbc.html)
 - [Spring Query Methods](https://docs.spring.io/spring-data/relational/reference/r2dbc/query-methods.html)
+  https://www.vinsguru.com/category/r2dbc/

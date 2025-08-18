@@ -14,22 +14,35 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @SpringBootTest(properties = "sec=sec03")
 public class CustomerControllerTest {
 
-    public static final Logger logger= LoggerFactory.getLogger(CustomerControllerTest.class);
+    public static final Logger logger = LoggerFactory.getLogger(CustomerControllerTest.class);
 
     @Autowired
     private WebTestClient client;
 
     @Test
-    public void testAllCustomer()
-    {
+    public void testAllCustomer() {
         this.client.get()
                 .uri("/customer")
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBodyList(Customer.class)
-                .value(list-> logger.info("List : {}",list.size()))
+                .value(list -> logger.info("List : {}", list.size()))
                 .hasSize(10);
+    }
+
+    @Test
+    public void testAllCustomerJsonPath() {
+        this.client.get()
+                .uri("/customer/paginated?pageNumber=2&pageSize=3")
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .consumeWith(res -> logger.info("List : {}", String.valueOf(res.getResponseBodyContent())))
+                .jsonPath("$.length()").isEqualTo(3)
+                .jsonPath("$[0].id").isEqualTo(4)
+                .jsonPath("[1].id").isEqualTo(5);
     }
 
 }
