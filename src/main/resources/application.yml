@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: springwebflux
+  sql:
+    init:
+      data-locations: classpath:sql/data.sql
+
+server:
+  port: 9090
+
+sec: sec03
+
