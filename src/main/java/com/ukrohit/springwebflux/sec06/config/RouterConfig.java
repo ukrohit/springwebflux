@@ -23,12 +23,12 @@ public class RouterConfig {
     public RouterFunction<ServerResponse> customerRoutes() {
         return RouterFunctions.route()
                 .GET("/customer", this.custmerRequestHandler::allCustomers)
+                .GET("/customer/paginated", this.custmerRequestHandler::getCustomer)
                 .GET("/customer/{id}", this.custmerRequestHandler::getCustomer)
                 .POST("/customer", this.custmerRequestHandler::saveCustomer)
                 .PUT("/customer/{id}", this.custmerRequestHandler::updateCustomer)
                 .onError(CustomerNotFoundException.class,(ex,req)->this.excveptionHandler.handleException(ex,req))
                 .onError(InvalidInutException.class,(ex, req)->this.excveptionHandler.handleException(ex,req))
-
                 .build();
     }
 }
